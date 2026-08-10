@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser
+from .models import CustomUser, UserProfile
 
 class UserSerializer(serializers.ModelSerializer):   
     class Meta:
@@ -21,3 +22,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             role=validated_data.get('role', 'job_seeker')
         )
         return user
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('bio','skills','resume_link')
