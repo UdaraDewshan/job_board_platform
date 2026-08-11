@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    console.log("Login details:", { username, password });
+    console.log("Register details:", { username, password });
   };
 
   return (
@@ -15,10 +15,10 @@ const Login = () => {
       
       <div className="bg-white/5 backdrop-blur-md border border-white/10 p-10 rounded-2xl w-full max-w-md shadow-2xl text-center">
         
-        <h2 className="text-white text-3xl font-bold mb-1">Welcome Back</h2>
-        <p className="text-slate-400 text-sm mb-8">Login to your Job Board account</p>
+        <h2 className="text-white text-3xl font-bold mb-1">Create an Account</h2>
+        <p className="text-slate-400 text-sm mb-8">Join the Job Board platform today</p>
         
-        <form onSubmit={handleLogin} className="flex flex-col gap-5">
+        <form onSubmit={handleRegister} className="flex flex-col gap-5">
           
           <div className="text-left">
             <label className="block text-slate-300 text-sm mb-2 font-medium">Username</label>
@@ -26,7 +26,7 @@ const Login = () => {
               type="text" 
               value={username} 
               onChange={(e) => setUsername(e.target.value)} 
-              placeholder="Enter your username"
+              placeholder="Choose a username"
               className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-base outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white/10 focus:shadow-[0_0_10px_rgba(139,92,246,0.3)] box-border"
               required 
             />
@@ -38,7 +38,7 @@ const Login = () => {
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
-              placeholder="Enter your password"
+              placeholder="Create a password"
               className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-base outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white/10 focus:shadow-[0_0_10px_rgba(139,92,246,0.3)] box-border"
               required 
             />
@@ -48,14 +48,14 @@ const Login = () => {
             type="submit" 
             className="w-full bg-gradient-to-r from-violet-500 to-blue-500 text-white font-semibold py-3 rounded-lg mt-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(139,92,246,0.4)] cursor-pointer"
           >
-            Login
+            Register
           </button>
         </form>
         
         <p className="mt-8 text-slate-400 text-sm">
-          Don't have an account? 
-          <Link to="/register" className="text-violet-500 font-semibold hover:text-violet-400 transition-colors ml-1 decoration-transparent">
-            Register here
+          Already have an account? 
+          <Link to="/login" className="text-violet-500 font-semibold hover:text-violet-400 transition-colors ml-1 decoration-transparent">
+            Login here
           </Link>
         </p>
       </div>
@@ -63,4 +63,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
