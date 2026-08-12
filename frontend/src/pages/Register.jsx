@@ -4,7 +4,9 @@ import axios from 'axios';
 
 const Register = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('job_seeker');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -13,17 +15,19 @@ const Register = () => {
     setError('');
 
     try {
-      await axios.post('http://127.0.0.1:8000/api/register/', { 
+      await axios.post('http://127.0.0.1:8000/api/users/register/', { 
         username: username, 
-        password: password 
+        email: email,
+        password: password, 
+        role: role,
       });
       
       alert('Registration Successful! Please login.');
-      navigate('/login');
+      navigate('/login'); 
 
     } catch (err) {
       console.error(err);
-      setError('Registration failed. Please try a different username.');
+      setError(err.response?.data?.detail || 'Registration failed. Please check your details.');
     }
   };
 
@@ -36,39 +40,62 @@ const Register = () => {
         
         {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
-        <form onSubmit={handleRegister} className="flex flex-col gap-5">
+        <form onSubmit={handleRegister} className="flex flex-col gap-4">
+          
           <div className="text-left">
-            <label className="block text-slate-300 text-sm mb-2 font-medium">Username</label>
+            <label className="block text-slate-300 text-sm mb-1 font-medium">Username</label>
             <input 
               type="text" 
               value={username} 
               onChange={(e) => setUsername(e.target.value)} 
-              placeholder="Choose a username"
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-base outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white/10 focus:shadow-[0_0_10px_rgba(139,92,246,0.3)] box-border"
+              className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white outline-none focus:border-violet-500"
+              required 
+            />
+          </div>
+
+          <div className="text-left">
+            <label className="block text-slate-300 text-sm mb-1 font-medium">Email Address</label>
+            <input 
+              type="email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white outline-none focus:border-violet-500"
               required 
             />
           </div>
           
           <div className="text-left">
-            <label className="block text-slate-300 text-sm mb-2 font-medium">Password</label>
+            <label className="block text-slate-300 text-sm mb-1 font-medium">Password</label>
             <input 
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
-              placeholder="Create a password"
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-base outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white/10 focus:shadow-[0_0_10px_rgba(139,92,246,0.3)] box-border"
+              className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white outline-none focus:border-violet-500"
               required 
             />
           </div>
+
+          {/* Role Selection Dropdown */}
+          <div className="text-left">
+            <label className="block text-slate-300 text-sm mb-1 font-medium">I am a...</label>
+            <select 
+              value={role} 
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-white/10 text-white outline-none focus:border-violet-500 cursor-pointer"
+            >
+              <option value="job_seeker">Job Seeker (Looking for a job)</option>
+              <option value="employer">Employer (Posting jobs)</option>
+            </select>
+          </div>
           
-          <button type="submit" className="w-full bg-gradient-to-r from-violet-500 to-blue-500 text-white font-semibold py-3 rounded-lg mt-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(139,92,246,0.4)] cursor-pointer">
+          <button type="submit" className="w-full bg-gradient-to-r from-violet-500 to-blue-500 text-white font-semibold py-3 rounded-lg mt-4 transition-all hover:shadow-[0_10px_20px_rgba(139,92,246,0.4)]">
             Register
           </button>
         </form>
         
-        <p className="mt-8 text-slate-400 text-sm">
+        <p className="mt-6 text-slate-400 text-sm">
           Already have an account? 
-          <Link to="/login" className="text-violet-500 font-semibold hover:text-violet-400 transition-colors ml-1 decoration-transparent">
+          <Link to="/login" className="text-violet-500 font-semibold hover:text-violet-400 ml-1">
             Login here
           </Link>
         </p>
