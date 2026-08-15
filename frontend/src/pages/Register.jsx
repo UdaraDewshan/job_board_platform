@@ -75,7 +75,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Role Selection Dropdown */}
           <div className="text-left">
             <label className="block text-slate-300 text-sm mb-1 font-medium">I am a...</label>
             <select 

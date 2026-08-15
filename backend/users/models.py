@@ -15,7 +15,6 @@ class CustomUser(AbstractUser):
 class UserProfile(models.Model):
 
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile')
-
     bio = models.TextField(blank=True, null=True)
     skills = models.CharField(max_length=255, blank=True, null=True)
     resume_link = models.URLField(blank=True, null=True)
